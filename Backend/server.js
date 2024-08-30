@@ -11,9 +11,12 @@ app.get('/', (req, res) => {
 
 app.get('/repos', async (req, res) => {
   try {
-    const response = await fetch('https://api.github.com/users/freeCodeCamp/repos');
+    const response = await fetch('https://api.github.com/users/freeCodeCamp/repos', {
+      headers: {
+        Authorization: 'token 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',
+      },
+    });
     const data = await response.json();
-
     res.status(200).json({
       data: data.filter((repo) => repo.fork === false && repo.forks > 5),
     });
