@@ -13,7 +13,7 @@ app.get('/repos', async (req, res) => {
   try {
     const response = await fetch('https://api.github.com/users/freeCodeCamp/repos', {
       headers: {
-        Authorization: 'token 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',
+        Authorization: 'token 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',
       },
     });
     const data = await response.json();
@@ -21,6 +21,7 @@ app.get('/repos', async (req, res) => {
       data: data.filter((repo) => repo.fork === false && repo.forks > 5),
     });
   } catch (err) {
+    console.log(err);
     res.status(404).json({ message: 'Failed to fetch data' });
   }
 });
