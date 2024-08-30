@@ -7,7 +7,8 @@ type Repository = {
   name: string;
   description: string;
   language: string;
-  forks_count: number
+  forks_count: number;
+  created_at: string
   [key: string]: unknown;
 }
 
@@ -25,14 +26,20 @@ function App() {
 
 
   return (
-    <div className='flex flex-col gap-2'>
-      {data.map((repo) => {
+    <div className='flex flex-col gap-2 p-10'>
+      <h1 className='text-3xl'>freeCodeCamp Repositories</h1>
+      {data.sort((prev, next) => {
+        const prevTime = new Date(prev.created_at).getTime()
+        const nextTime = new Date(next.created_at).getTime()
+        return nextTime - prevTime
+      }).map((repo) => {
         return (
           <div className='border p-2 max-w-96 rounded-md '>
-            <h3>Name: {repo.name}</h3>
-            <p>Desription: {repo.description}</p>
-            <p>Language: {repo.language}</p>
-            <p>Forks count: {repo.forks_count}</p>
+            <h3><span className='font-bold'>Name:</span> {repo.name}</h3>
+            <p><span className='font-bold'>Desription:</span> {repo.description}</p>
+            <p><span className='font-bold'>Language:</span> {repo.language}</p>
+            <p><span className='font-bold'>Forks count:</span> {repo.forks_count}</p>
+            <p><span className='font-bold'>Created at:</span> {repo.created_at}</p>
           </div>
         )
       })}
